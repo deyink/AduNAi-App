@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Airtime from './screens/Airtime';
 import AccountSuccess from './screens/AccountSuccess';
+import PhoneOtp from './screens/PhoneOtp';
 
 
 
@@ -44,10 +45,10 @@ export default function App() {
         name='Airtime'
         component={Airtime}
         />
-              {/* <Stack.Screen 
-        name='PhoneNumberInput'
-        component={PhoneNumberInput}
-        /> */}
+              <Stack.Screen 
+        name='PhoneOtp'
+        component={PhoneOtp}
+        />
 
      
       </Stack.Navigator>

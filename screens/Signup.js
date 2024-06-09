@@ -1,9 +1,26 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { h, mw, w } from './styles/responsive'
+import axios from 'axios'
 
 
 const Signup = ({navigation}) => {
+
+
+  const handleSubmit = ()=>{
+    const userData = {
+      name: name ,
+      email,
+      password,
+    };
+    axios.
+    post('http://192.168.0.29:5001/Signup', userData )
+    .then( (res)=> console.log(res.data))
+    .catch((e)=> console.log(e))
+
+   
+  }
+
   return (
     <View style={styles.bground} >
       <View style={styles.card} >
@@ -30,7 +47,7 @@ const Signup = ({navigation}) => {
         
       />
 
-      <TouchableOpacity style={styles.btn} >
+      <TouchableOpacity style={styles.btn} onPress={()=>handleSubmit()} >
         <Text style={{color: 'white', fontSize: 15, textAlign:'center' }} > Sign Up  </Text>
       </TouchableOpacity>
 
@@ -74,8 +91,7 @@ const styles = StyleSheet.create({
         fontSize: mw(23),
         marginHorizontal: '35%',
         marginVertical: h(5)
-        
-        
+             
     },
     input: {
         height: 53,

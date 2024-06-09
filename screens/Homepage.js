@@ -14,18 +14,18 @@ const Homepage = ({navigation}) => {
   const Transactions = ({item}) => {
     return (
       <View>
-      <View style={{width:w(330) , backgroundColor:'#fffcf3', height:h(40) ,marginBottom:h(5), display:'flex', flexDirection:'row', justifyContent:'space-between',}} >
+        <View style={{width:w(330) , backgroundColor:'#fffcf3', height:h(40) ,marginBottom:h(5), display:'flex', flexDirection:'row', justifyContent:'space-between',}} >
 
-        <View style={{padding:3, backgroundColor:'white', borderWidth:0.17, borderRadius:5}}  >
-         <Image  source={ item.icon } />
-         </View> 
-        <Text style={{color:'blue', fontSize:mh(13), marginVertical:'auto' }} > {item.title} </Text>
-       
-        <Text style={{marginVertical:'auto'}} > {item.time} </Text>
-        <Text style={{textAlign:'right', display:'flex', color:'red', marginVertical:'auto' }} > {item.price}  </Text> 
+          <View style={{padding:3, backgroundColor:'white', borderWidth:0.17, borderRadius:5}}  >
+            <Image  source={ item.icon } />
+          </View> 
 
-      </View>
-      <HorizontalLine />
+          <Text style={{color:'blue', fontSize:mh(13), marginVertical:'auto' }} > {item.title} </Text>
+        
+          <Text style={{marginVertical:'auto'}} > {item.time} </Text>
+            <Text style={{textAlign:'right', display:'flex', color:'red', marginVertical:'auto' }} > {item.price}  </Text> 
+        </View>
+        <HorizontalLine />
       </View>
     )
   };
@@ -93,7 +93,7 @@ const Homepage = ({navigation}) => {
           renderItem={Transactions}
           keyExtractor={(item)=>item.id} 
         />
-        <HorizontalLine />
+  
 
 
     </View>

@@ -1,6 +1,3 @@
-import React from "react";
-import mtn from '../mtn.png'
-
 const TransactionData =[
     {
         id: 1,

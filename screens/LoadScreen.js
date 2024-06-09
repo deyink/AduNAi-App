@@ -2,6 +2,11 @@ import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 import React from 'react'
 
 const LoadScreen = () => {
+  useEffect(()=>{
+    setTimeout(()=>{
+      {LoadScreen}
+    }, 2000)
+  },[])
   return (
     <View>
       <ImageBackground style={styles.bground} >
