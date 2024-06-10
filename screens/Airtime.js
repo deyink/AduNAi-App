@@ -13,6 +13,9 @@ const networks = [
 const Airtime = () => {
 
     const [number, setNumber]= useState('')
+    
+    const [amt, setAmt] = useState('')
+    const [amtVerify, setAmtVerify] = useState(false)
 
 
     const [selectedProviderId, setSelectedProviderId] = useState(null)
@@ -24,6 +27,12 @@ const Airtime = () => {
 
     const onChangeNumber = (e)=>{
         setNumber(e.nativeEvent.text)
+    }
+    const onchangeAmt = (e)=>{
+        amtEvent = e.nativeEvent.text;
+        setAmt(amtEvent)
+        amtEvent.value >= 50 ? setAmtVerify(true) : setAmtVerify(false)
+
     }
 
   
@@ -106,10 +115,11 @@ const Airtime = () => {
             }} >
                 Amount
             </Text>
-
+            <View style={{flexDirection:'row'}} >
             <TextInput 
             placeholder='0.00' 
             keyboardType='numeric' 
+            onChange={e=>onchangeAmt(e)}
             style = {{
                 height:h(45), 
                 paddingHorizontal:8, 
@@ -118,7 +128,13 @@ const Airtime = () => {
                 color:'black', 
                 borderColor: 'black', 
                 borderRadius:8,  
+                width:w(310)
             }} />
+            {  amt === 0 ? null : amtVerify ? 
+            ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
+            ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
+            }
+            </View>
 
             <Text style={{}} > 
                 min:50 
