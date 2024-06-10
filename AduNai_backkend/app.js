@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+app.use(express.json)
 
 const mongoUrl = "mongodb+srv://yusufadeyinka55:Akanji%40222@cluster0.ueu7rrb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
@@ -14,7 +15,7 @@ require('./UserDetails')
 const User = mongoose.model('UserInfo')
 
 app.listen(5001, ()=>{
-    console.log('server started')
+    console.log('server started')  
 })
 
 app.get('/', (req, res)=>{

@@ -1,17 +1,52 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
+import React, { useState } from 'react'
 import { h, mw, w } from './styles/responsive'
 import axios from 'axios'
 
 
+
 const Signup = ({navigation}) => {
+
+  const [name, setName] = useState('')
+  const [nameVerify, setNameVerify ] = useState(false)
+  const [email, setEmail] = useState('')
+  const [emailVerify, setEmailVerify] = useState(false)
+  const [password, setPassword] = useState('')
+  const [passwordVerify, setPasswordVerify] = useState(false)
+
+  const onChangeName = (e)=>{
+
+    const nameEvent=e.nativeEvent.text;
+    setName(nameEvent);
+
+    
+    if (nameEvent.length > 3)
+    {setNameVerify(true)}
+    else {setNameVerify(false)}
+    // setNameVerify(false)
+  };
+
+  const onChangeEmail = (e)=>{
+    const emailEvent = e.nativeEvent.text
+    setEmail(emailEvent);
+    
+    emailEvent.length > 3 ? setEmailVerify(true) : setEmailVerify(false) 
+  }
+
+  const onChangePassword = ()=>{
+    const passwordEvent = e.nativeEvent.text;
+    setPassword(passwordEvent)
+
+    passwordEvent.length > 10 ? setPasswordVerify(true) : setPasswordVerify(false)
+  }
+  
 
 
   const handleSubmit = ()=>{
     const userData = {
-      name: name ,
+      name ,
       email,
-      password,
+      // password,
     };
     axios.
     post('http://192.168.0.29:5001/Signup', userData )
@@ -26,26 +61,44 @@ const Signup = ({navigation}) => {
       <View style={styles.card} >
         <Text style={styles.head} > Welcome! </Text>
         <Text style={{color:'gray', textAlign:'center', marginBottom:h(20)}} >Please fill in {'\n'}  the following details to create your new Account</Text>
-        <TextInput
+
+       <View style={{flexDirection:'row'}} >
+       <TextInput
         style={styles.input}
-        // onChangeText={onChangeText}
+         onChange={ (e) => onChangeName(e) }
         placeholder="Your Full Name"
         keyboardType=""
-        
       />
-      <TextInput
-        style={styles.input}
-        // onChangeText={onChangeNumber}
-        placeholder="Username"
-        keyboardType=""
-      />
+      {  name.length === 0 ? null : nameVerify ? 
+      ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
+      ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
+      }
+       </View>
+       {}
+
+       <View style={{flexDirection:'row'}} >
+       <TextInput style={styles.input} 
+       placeholder='Your Email Address' 
+       onChange={ e => onChangeEmail(e) }  />
+       {
+       email.length === 0 ? null :  emailVerify ? 
+      ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
+      ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
+        }
+        </View>
+      
+      
           <TextInput
         style={styles.input}
-        // onChangeText={onChangeNumber}
+         onChange={e=>onChangePassword(e)}
         placeholder="Password"
         keyboardType=""
-        
-      />
+      /> 
+      {password.length === 0 ? null : passwordVerify ? 
+       ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
+       ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
+        }
+    
 
       <TouchableOpacity style={styles.btn} onPress={()=>handleSubmit()} >
         <Text style={{color: 'white', fontSize: 15, textAlign:'center' }} > Sign Up  </Text>
@@ -103,6 +156,7 @@ const styles = StyleSheet.create({
         color:'#fffcf3',
         paddingHorizontal: 8,
         backgroundColor:'#465477',
+        width: w(310)
       },
       btn:{
         marginHorizontal: 'auto',
