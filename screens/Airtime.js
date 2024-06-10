@@ -11,12 +11,20 @@ const networks = [
 ]
 
 const Airtime = () => {
+
+    const [number, setNumber]= useState('')
+
+
     const [selectedProviderId, setSelectedProviderId] = useState(null)
 
     const handleProvider = (id)=>
         {
         setSelectedProviderId(id)
         }
+
+    const onChangeNumber = (e)=>{
+        setNumber(e.nativeEvent.text)
+    }
 
   
   return (
@@ -70,6 +78,7 @@ const Airtime = () => {
             <TextInput 
             placeholder='Enter Number' 
             keyboardType='numeric' 
+            onChange={e=>onChangeNumber(e)}
             style = {{
                 height:h(50), 
                 paddingHorizontal:8, 
