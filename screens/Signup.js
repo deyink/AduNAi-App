@@ -27,19 +27,26 @@ const Signup = ({navigation}) => {
   };
 
   const onChangeEmail = (e)=>{
+    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
     const emailEvent = e.nativeEvent.text
-    setEmail(emailEvent);
+    setEmail(emailEvent);  
+    regex.test(emailEvent) ? setEmailVerify(true) : setEmailVerify(false)
+
+    // const emailErr = document.getElementBiId('EmailErr')
+    // if (emailVerify) {emailErr.style.display = 'none'} {emailErr.style.display = 'block'}
     
-    emailEvent.length > 3 ? setEmailVerify(true) : setEmailVerify(false) 
+    // emailEvent.length > 3 ? setEmailVerify(true) : setEmailVerify(false) 
   }
 
   const onChangePassword = (e)=>{
+    const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/
     const passwordEvent = e.nativeEvent.text;
     setPassword(passwordEvent)
 
-    passwordEvent.length > 10 ? setPasswordVerify(true) : setPasswordVerify(false)
+    regex.test(passwordEvent) ? setPasswordVerify(true) : setPasswordVerify(false)
   }
   
+   
 
 
   const handleSubmit = ()=>{
@@ -69,11 +76,14 @@ const Signup = ({navigation}) => {
         placeholder="Your Full Name"
         keyboardType=""
       />
+      
       {  name.length === 0 ? null : nameVerify ? 
-      ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
+      ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)  }}   /> ) :
       ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
       }
        </View>
+       
+       <Text style={{color:'white', textAlign:'right', paddingHorizontal:w(10) }} >write your full name</Text>
        {}
 
        <View style={{flexDirection:'row'}} >
@@ -81,12 +91,17 @@ const Signup = ({navigation}) => {
        placeholder='Your Email Address' 
        onChange={ e => onChangeEmail(e) }  />
        {
-       email.length === 0 ? null :  emailVerify ? 
+       
+       email.length === 0 ? null : 
+        emailVerify ? 
       ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
       ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
         }
+         
         </View>
-      
+        
+        <Text style={{color:'white', textAlign:'right', display:'none' ,paddingHorizontal:w(10) }} >Write a valid Email Address</Text>
+       
         <View style={{flexDirection:'row'}} >
           <TextInput
         style={styles.input}
@@ -149,7 +164,8 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 53,
-        margin: 12,
+        marginHorizontal: 12,
+        marginVertical: 2,
         borderWidth: .5,
         color: 'white',
         borderColor: 'white',
