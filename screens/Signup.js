@@ -33,7 +33,7 @@ const Signup = ({navigation}) => {
     emailEvent.length > 3 ? setEmailVerify(true) : setEmailVerify(false) 
   }
 
-  const onChangePassword = ()=>{
+  const onChangePassword = (e)=>{
     const passwordEvent = e.nativeEvent.text;
     setPassword(passwordEvent)
 
@@ -87,7 +87,7 @@ const Signup = ({navigation}) => {
         }
         </View>
       
-      
+        <View style={{flexDirection:'row'}} >
           <TextInput
         style={styles.input}
          onChange={e=>onChangePassword(e)}
@@ -98,6 +98,7 @@ const Signup = ({navigation}) => {
        ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
        ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
         }
+        </View>
     
 
       <TouchableOpacity style={styles.btn} onPress={()=>handleSubmit()} >
