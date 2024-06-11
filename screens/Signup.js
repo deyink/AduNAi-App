@@ -27,9 +27,9 @@ const Signup = ({navigation}) => {
   };
 
   const onChangeEmail = (e)=>{
-    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
     const emailEvent = e.nativeEvent.text
     setEmail(emailEvent);  
+     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
     regex.test(emailEvent) ? setEmailVerify(true) : setEmailVerify(false)
 
     // const emailErr = document.getElementBiId('EmailErr')
@@ -39,10 +39,9 @@ const Signup = ({navigation}) => {
   }
 
   const onChangePassword = (e)=>{
-    const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/
     const passwordEvent = e.nativeEvent.text;
     setPassword(passwordEvent)
-
+    const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/
     regex.test(passwordEvent) ? setPasswordVerify(true) : setPasswordVerify(false)
   }
   
@@ -83,7 +82,7 @@ const Signup = ({navigation}) => {
       }
        </View>
        
-       <Text style={{color:'white', textAlign:'right', paddingHorizontal:w(10) }} >write your full name</Text>
+       <Text style={{color:'white', textAlign:'right', paddingHorizontal:w(10) }} >Write Your Full Name</Text>
        {}
 
        <View style={{flexDirection:'row'}} >
@@ -99,8 +98,6 @@ const Signup = ({navigation}) => {
         }
          
         </View>
-        
-        <Text style={{color:'white', textAlign:'right', display:'none' ,paddingHorizontal:w(10) }} >Write a valid Email Address</Text>
        
         <View style={{flexDirection:'row'}} >
           <TextInput
@@ -165,7 +162,7 @@ const styles = StyleSheet.create({
     input: {
         height: 53,
         marginHorizontal: 12,
-        marginVertical: 2,
+        marginVertical: 5 ,
         borderWidth: .5,
         color: 'white',
         borderColor: 'white',
