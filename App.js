@@ -49,6 +49,10 @@ export default function App() {
         name='PhoneOtp'
         component={PhoneOtp}
         />
+         <Stack.Screen 
+        name='AccountSuccess'
+        component={AccountSuccess}
+        />
 
      
       </Stack.Navigator>

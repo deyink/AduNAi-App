@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { h, mw, w } from './styles/responsive'
 import axios from 'axios'
@@ -48,9 +48,12 @@ const Signup = ({navigation}) => {
       password,
     };
     axios.
-    post(' 192.168.0.137:5001/Signup', userData )
-    .then( res => console.log(res.data) )
-    .catch( e => console.log(e) )
+    post("http://192.168.0.137:5001/Signup", userData )
+    .then( () => {
+      // Alert.alert("Account sucessfully created");
+                    navigation.navigate('AccountSuccess')
+    } )
+    .catch( () => Alert.alert('Account unsucessfull') )
 
    
   }
