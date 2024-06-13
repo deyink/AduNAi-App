@@ -15,11 +15,8 @@ const Signup = ({navigation}) => {
   const [passwordVerify, setPasswordVerify] = useState(false)
 
   const onChangeName = (e)=>{
-
     const nameEvent=e.nativeEvent.text;
     setName(nameEvent);
-
-    
     if (nameEvent.length > 3)
     {setNameVerify(true)}
     else {setNameVerify(false)}
@@ -32,10 +29,6 @@ const Signup = ({navigation}) => {
      const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
     regex.test(emailEvent) ? setEmailVerify(true) : setEmailVerify(false)
 
-    // const emailErr = document.getElementBiId('EmailErr')
-    // if (emailVerify) {emailErr.style.display = 'none'} {emailErr.style.display = 'block'}
-    
-    // emailEvent.length > 3 ? setEmailVerify(true) : setEmailVerify(false) 
   }
 
   const onChangePassword = (e)=>{
@@ -50,14 +43,14 @@ const Signup = ({navigation}) => {
 
   const handleSubmit = ()=>{
     const userData = {
-      name ,
-      email,
-      // password,
+      name: name ,
+      email: email,
+      password,
     };
     axios.
-    post('http://192.168.0.29:5001/Signup', userData )
-    .then( (res)=> console.log(res.data))
-    .catch((e)=> console.log(e))
+    post(' 192.168.0.137:5001/Signup', userData )
+    .then( res => console.log(res.data) )
+    .catch( e => console.log(e) )
 
    
   }
@@ -80,9 +73,12 @@ const Signup = ({navigation}) => {
       ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)  }}   /> ) :
       ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
       }
+      {
+        name.length === 0 ? null : nameVerify ? null : (<Text style={{color:'white', textAlign:'right', paddingHorizontal:w(10) }} >Write Your Full Name</Text>)
+      }
        </View>
        
-       <Text style={{color:'white', textAlign:'right', paddingHorizontal:w(10) }} >Write Your Full Name</Text>
+       
        {}
 
        <View style={{flexDirection:'row'}} >

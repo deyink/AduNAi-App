@@ -1,35 +1,35 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-app.use(express.json)
+app.use(express.json());
 
 const mongoUrl = "mongodb+srv://yusufadeyinka55:Akanji%40222@cluster0.ueu7rrb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-mongoose.connect(mongoUrl).then(()=>{
+mongoose
+.connect(mongoUrl)
+.then(()=>{
     console.log('Database connected');
 }).catch((e)=>{
     console.log(e)
 });
 
-require('./UserDetails')
+require('../AduNai_backkend/UserDetails')
 const User = mongoose.model('UserInfo')
-
-app.listen(5001, ()=>{
-    console.log('server started')  
-})
 
 app.get('/', (req, res)=>{
     res.send("My first Server code")
 } );
 
+
+
 app.post('/Signup', async(req, res)=>{
     const {name, email, password } = req.body;
 
-    const oldUser = await User.find({email:email})
+    const oldUser = await User.findOne({email:email})
 
     if(oldUser){
         return res.send({data: 'User already exist'})
-    }
+    };
 
     try {
         await User.create({
@@ -45,6 +45,11 @@ app.post('/Signup', async(req, res)=>{
         
     }
     
-})
+});
+
+app.listen(5001, ()=>{
+    console.log('server started')  
+});
+
 
 
