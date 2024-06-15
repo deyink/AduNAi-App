@@ -51,11 +51,10 @@ const Signup = ({navigation}) => {
     post("http://192.168.0.137:5001/Signup", userData )
     .then( () => {
       // Alert.alert("Account sucessfully created");
-                    navigation.navigate('AccountSuccess')
+      navigation.navigate('AccountSuccess')
     } )
     .catch( () => Alert.alert('Account unsucessfull') )
 
-   
   }
 
   return (
