@@ -6,17 +6,27 @@ const Login = ({navigation}) => {
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordVerify, setPasswordVerify] = useState(false);
+  const [passwordVerify, setPasswordVerify] = useState(null);
   const [nameVerify, setNameVerify] = useState(null)
 
   const onChangeName = (e)=>{
     const nameEvent = e.nativeEvent.text;
     setName(nameEvent)
-    nameEvent.length > 3 ? setNameVerify(true) : setNameVerify(false)  
+    nameEvent.length > 3 ? setNameVerify(true) :   setNameVerify(false)  
   }
   const onChangePassword = (e)=>{
     const passwordEvent = e.nativeEvent.text;
     setPassword(passwordEvent)
+    const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/ ;
+    regex.test(passwordEvent) ? setPasswordVerify(true) : setPasswordVerify(false) 
+  }
+
+  const handleSubmit = ()=>{
+    const userData = {
+      name: name,
+      password,
+    } ;
+
   }
 
   return (
@@ -37,12 +47,21 @@ const Login = ({navigation}) => {
        ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
        ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> )  }
       </View>
+
+      <View style={{flexDirection:'row'}} >
       <TextInput
         style={styles.input}
         onChange={ e => onChangePassword(e) }
         placeholder="Password"
         keyboardType=""
+        
       />
+        { 
+        password.length === 0 ? null : passwordVerify ? 
+        ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
+       ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> )  
+       }   
+      </View>
 
       <TouchableOpacity style={styles.btn} >
         <Text style={{color: 'white', fontSize: 15, textAlign:'center' }} > Login  </Text>
