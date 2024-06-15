@@ -1,8 +1,21 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { w, mw, mh, h } from './styles/responsive'
 
 const Login = ({navigation}) => {
+
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onChangeName = (e)=>{
+    const nameEvent = e.nativeEvent.text;
+    setName(nameEvent)
+  }
+  const onChangePassword = (e)=>{
+    const passwordEvent = e.nativeEvent.text;
+    setPassword(passwordEvent)
+  }
+
   return (
     <View style={styles.bground} >
       <View style={styles.card} >
@@ -12,14 +25,14 @@ const Login = ({navigation}) => {
         {/* inputs */}
         <TextInput
         style={styles.input}
-        // onChangeText={onChangeText}
+        onChange={ (e) => onChangeName(e) }
         placeholder="Username"
         keyboardType=""
         
       />
       <TextInput
         style={styles.input}
-        // onChangeText={onChangeNumber}
+        onChange={ e => onChangePassword(e) }
         placeholder="Password"
         keyboardType=""
       />
