@@ -48,7 +48,8 @@ const Signup = ({navigation}) => {
       email: email,
       password,
     };
-    axios.
+    if ( nameVerify && emailVerify && passwordVerify ) {
+      axios.
     post("http://192.168.0.137:5001/Signup", userData )
     .then( () => {
       // Alert.alert("Account sucessfully created");
@@ -56,7 +57,13 @@ const Signup = ({navigation}) => {
     } )
     .catch( () => Alert.alert('Account unsucessfull') )
 
+    } {
+      Alert.alert('Please Input Necceassary Details')
+    }
   }
+    
+
+
 
   return (
     <View style={styles.bground} >

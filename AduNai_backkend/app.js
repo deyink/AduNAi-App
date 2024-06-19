@@ -38,7 +38,7 @@ app.post('/Signup', async(req, res)=>{
         await User.create({
             name: name,
             email: email,
-            password: passwordEncrypt
+            password: passwordEncrypt 
     
         });
         res.send({status: 'ok', data: 'user created' });
