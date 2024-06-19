@@ -5,6 +5,7 @@ import axios from 'axios'
 
 
 
+
 const Signup = ({navigation}) => {
 
   const [name, setName] = useState('')

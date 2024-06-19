@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 app.use(express.json());
+const bcrypt = require('bcryptjs')
 
 const mongoUrl = "mongodb+srv://yusufadeyinka55:Akanji%40222@cluster0.ueu7rrb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
@@ -31,11 +32,13 @@ app.post('/Signup', async(req, res)=>{
         return res.send({data: 'User already exist'})
     };
 
+    const passwordEncrypt = await bcrypt.hash( password, 10 )
+
     try {
         await User.create({
             name: name,
             email: email,
-            password,
+            password: passwordEncrypt
     
         });
         res.send({status: 'ok', data: 'user created' });
@@ -45,6 +48,20 @@ app.post('/Signup', async(req, res)=>{
         
     }
     
+});
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    const oldUser = await User.findOne({ email: email }) ;
+
+    if(oldUser){
+        return res.send
+    }
+
+    if (!oldUser){
+        return res.send({data: " User doesn't exist!! " })
+    }
+    // if (await bycrypt.compare(password, ) )
 });
 
 app.listen(5001, ()=>{

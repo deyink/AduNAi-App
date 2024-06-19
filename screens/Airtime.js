@@ -15,23 +15,20 @@ const Airtime = () => {
     const [number, setNumber]= useState('')
     
     const [amt, setAmt] = useState('')
-    const [amtVerify, setAmtVerify] = useState(false)
+    const [amtVerify, setAmtVerify] = useState(null)
 
 
     const [selectedProviderId, setSelectedProviderId] = useState(null)
-
     const handleProvider = (id)=>
-        {
-        setSelectedProviderId(id)
-        }
+        {setSelectedProviderId(id)}
 
     const onChangeNumber = (e)=>{
         setNumber(e.nativeEvent.text)
     }
     const onchangeAmt = (e)=>{
         amtEvent = e.nativeEvent.text;
-        setAmt(amtEvent)
-        amtEvent.value >= 50 ? setAmtVerify(true) : setAmtVerify(false)
+        setAmt(amtEvent);
+        amtEvent.value > 50 ? setAmtVerify(true) : setAmtVerify(false)
 
     }
 
@@ -130,7 +127,7 @@ const Airtime = () => {
                 borderRadius:8,  
                 width:w(310)
             }} />
-            {  amt === 0 ? null : amtVerify ? 
+            {  amt.length === 0 ? null : amtVerify ? 
             ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
             ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> ) 
             }
