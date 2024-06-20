@@ -48,18 +48,30 @@ const Signup = ({navigation}) => {
       email: email,
       password,
     };
-    if ( nameVerify && emailVerify && passwordVerify ) {
-      axios.
-    post("http://192.168.0.137:5001/Signup", userData )
-    .then( () => {
-      // Alert.alert("Account sucessfully created");
-      navigation.navigate('AccountSuccess')
-    } )
-    .catch( () => Alert.alert('Account unsucessfull') )
+    if( nameVerify && emailVerify && passwordVerify ){
+      axios
+    .post("http://192.168.0.223:5001/Signup", userData )
+    .then( res=> {
+      console.log(res.data)
 
-    } {
-      Alert.alert('Please Input Necceassary Details')
+      if(res.data.status === 'ok' ){
+        navigation.navigate('AccountSuccess')
+      }
+      else if (res.data.data === 'User already exist' ) {
+        // Alert.alert('User Already exist please login')  
+        navigation.navigate('Login')
+      }
+    
+         })
+    .catch( e => {
+      console.log(e)
+        })
     }
+    else {
+      Alert.alert('input All required Details')
+    }
+      
+    
   }
     
 

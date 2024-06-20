@@ -30,6 +30,7 @@ app.post('/Signup', async(req, res)=>{
 
     if(oldUser){
         return res.send({data: 'User already exist'})
+      
     };
 
     const passwordEncrypt = await bcrypt.hash( password, 10 )
@@ -55,13 +56,14 @@ app.post('/login', async (req, res) => {
     const oldUser = await User.findOne({ email: email }) ;
 
     if(oldUser){
-        return res.send
+        return res.send({data: 'User Already exist'})
     }
 
     if (!oldUser){
         return res.send({data: " User doesn't exist!! " })
     }
-    // if (await bycrypt.compare(password, ) )
+    
+     
 });
 
 app.listen(5001, ()=>{
