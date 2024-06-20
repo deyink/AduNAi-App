@@ -3,8 +3,11 @@ const app = express()
 const mongoose = require('mongoose')
 app.use(express.json());
 const bcrypt = require('bcryptjs')
+const jwt = ('jsonwentoken')
 
-const mongoUrl = "mongodb+srv://yusufadeyinka55:Akanji%40222@cluster0.ueu7rrb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const mongoUrl = "mongodb+srv://yusufadeyinka55:Akanji%40222@cluster0.ueu7rrb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" ;
+
+const JWT_sec = '3fee1b0ee5a62a4e6cd6a39ff22e35b754330426addba31494695d8ca21990f8' ;
 
 mongoose
 .connect(mongoUrl)
@@ -53,15 +56,13 @@ app.post('/Signup', async(req, res)=>{
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    const oldUser = await User.findOne({ email: email }) ;
 
-    if(oldUser){
-        return res.send({data: 'User Already exist'})
-    }
+    const oldUser = await User.findOne({ email: email }) ;
 
     if (!oldUser){
         return res.send({data: " User doesn't exist!! " })
     }
+    if ( await bcrypt.compare( password, oldUser.password ) )
     
      
 });
