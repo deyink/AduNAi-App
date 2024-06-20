@@ -54,7 +54,7 @@ app.post('/Signup', async(req, res)=>{
     
 });
 
-app.post('/login', async (req, res) => {
+app.post('/Login', async (req, res) => {
     const { email, password } = req.body;
 
     const oldUser = await User.findOne({ email: email }) ;
@@ -62,7 +62,16 @@ app.post('/login', async (req, res) => {
     if (!oldUser){
         return res.send({data: " User doesn't exist!! " })
     }
-    if ( await bcrypt.compare( password, oldUser.password ) )
+    if ( await bcrypt.compare( password, oldUser.password ) ){
+        const token = jwt.sign({email:oldUser.email}, JWT_sec )
+        if(res.status(201)){
+            res.send({status: 'ok', data: token })
+        } else {
+            res.send({ erro: 'error' })
+        }
+    } else {
+        return res.send({error: 'error' })
+    }
     
      
 });

@@ -1,18 +1,21 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import { w, mw, mh, h } from './styles/responsive'
+import axios from 'axios';
 
 const Login = ({navigation}) => {
 
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVerify, setPasswordVerify] = useState(null);
-  const [nameVerify, setNameVerify] = useState(null)
+  const [emailVerify, setEmailVerify] = useState(null)
 
-  const onChangeName = (e)=>{
-    const nameEvent = e.nativeEvent.text;
-    setName(nameEvent)
-    nameEvent.length > 3 ? setNameVerify(true) :   setNameVerify(false)  
+  const onChangeEmail = (e)=>{
+    const emailEvent = e.nativeEvent.text
+    setEmail(emailEvent);  
+     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
+    regex.test(emailEvent) ? setEmailVerify(true) : setEmailVerify(false)
+
   }
   const onChangePassword = (e)=>{
     const passwordEvent = e.nativeEvent.text;
@@ -23,9 +26,17 @@ const Login = ({navigation}) => {
 
   const handleSubmit = ()=>{
     const userData = {
-      name: name,
+      email: email,
       password,
-    } ;
+    } 
+    axios
+    .post("http://192.168.0.223:5001/Login", userData)
+    .then( res => {
+      console.log(res.data)
+    } )
+    .catch( e => {
+      console.log(e)
+    } )
 
   }
 
@@ -39,11 +50,11 @@ const Login = ({navigation}) => {
         <View style={{flexDirection:'row'}} > 
         <TextInput
         style={styles.input}
-        onChange={ (e) => onChangeName(e) }
-        placeholder="Username"
+        onChange={ (e) => onChangeEmail(e) }
+        placeholder="Email"
         keyboardType=""
       />
-      { name.length === 0 ? null : nameVerify ?   
+      { email.length === 0 ? null : emailVerify ?   
        ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
        ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> )  }
       </View>
@@ -63,7 +74,7 @@ const Login = ({navigation}) => {
        }   
       </View>
 
-      <TouchableOpacity style={styles.btn} >
+      <TouchableOpacity style={styles.btn} onPress={()=>handleSubmit()} >
         <Text style={{color: 'white', fontSize: 15, textAlign:'center' }} > Login  </Text>
       </TouchableOpacity>
 
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
 
     card:{
         height: 'auto',
-        width: w(330),
+        width: w(330), 
         backgroundColor: '#2f3f66',
         margin: 'auto',
         borderRadius: 10

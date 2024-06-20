@@ -13,7 +13,6 @@ const networks = [
 const Airtime = () => {
 
     const [number, setNumber]= useState('')
-    
     const [amt, setAmt] = useState('')
     const [amtVerify, setAmtVerify] = useState(null)
 
@@ -29,10 +28,8 @@ const Airtime = () => {
         amtEvent = e.nativeEvent.text;
         setAmt(amtEvent);
         amtEvent.value > 50 ? setAmtVerify(true) : setAmtVerify(false)
-
     }
 
-  
   return (
     <View style={{backgroundColor:'#fffcf3', width:w(350), height:'100%', }} >
 
@@ -51,7 +48,7 @@ const Airtime = () => {
                 Select A method 
             </Text>
             <View style={{borderWidth:.7, borderRadius:10}} >
-                <Dropdown />
+                <Dropdown />  
             </View>
 
         {/* provider selector */}
