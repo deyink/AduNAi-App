@@ -3,7 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 app.use(express.json());
 const bcrypt = require('bcryptjs')
-const jwt = ('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 const mongoUrl = "mongodb+srv://yusufadeyinka55:Akanji%40222@cluster0.ueu7rrb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" ;
 
@@ -65,14 +65,15 @@ app.post('/Login', async (req, res) => {
     if ( await bcrypt.compare( password, oldUser.password ) ){
         const token = jwt.sign({email: oldUser.email }, JWT_sec ) ;
 
-        if (res.status(201)) {
-            return            
+        if (res.status(200)) {
+                 
             res.send({status: 'ok', data: token }) ;
+          
         
            
         } 
          else {
-            return
+        
              res.send({ error: 'error' })
             
          }

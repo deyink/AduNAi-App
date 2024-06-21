@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { w, mw, mh, h } from './styles/responsive'
 import axios from 'axios';
@@ -32,7 +32,15 @@ const Login = ({navigation}) => {
     axios
     .post("http://192.168.0.223:5001/Login", userData)
     .then( res => {
-      console.log(res.data)
+      console.log(res.data) ;
+
+      if(res.data.status === 'ok' ){
+        navigation.navigate('Homepage')         
+      }
+      else if (res.data.data ===  " User doesn't exist!! "  )
+      {
+        Alert.alert('User Does not Exist')
+      }
     } )
 
 

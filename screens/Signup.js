@@ -55,12 +55,17 @@ const Signup = ({navigation}) => {
       console.log(res.data)
 
       if(res.data.status === 'ok' ){
+        Alert.alert('Account Successfully Created')
         navigation.navigate('AccountSuccess')
       }
       else if (res.data.data === 'User already exist' ) {
-        // Alert.alert('User Already exist please login')  
+        Alert.alert('User Already Registered Please Login ')
         navigation.navigate('Login')
       }
+      // else if (res.data.data === 'User already exist' ){
+      //    Alert.alert('User Already exist please login')  
+
+      // }
     
          })
     .catch( e => {
