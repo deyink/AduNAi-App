@@ -34,9 +34,7 @@ const Login = ({navigation}) => {
     .then( res => {
       console.log(res.data)
     } )
-    .catch( e => {
-      console.log(e)
-    } )
+
 
   }
 
@@ -54,9 +52,6 @@ const Login = ({navigation}) => {
         placeholder="Email"
         keyboardType=""
       />
-      { email.length === 0 ? null : emailVerify ?   
-       ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
-       ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> )  }
       </View>
 
       <View style={{flexDirection:'row'}} >
@@ -67,11 +62,8 @@ const Login = ({navigation}) => {
         keyboardType=""
         
       />
-        { 
-        password.length === 0 ? null : passwordVerify ? 
-        ( <Image source={require('../check.png')} style={{marginVertical:'auto', right:w(30)}}  /> ) :
-       ( <Image source={require('../crossed.png')} style={{marginVertical:'auto', right:w(30) }}  /> )  
-       }   
+        
+          
       </View>
 
       <TouchableOpacity style={styles.btn} onPress={()=>handleSubmit()} >
