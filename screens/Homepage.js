@@ -1,14 +1,35 @@
 import { View, Text, StyleSheet, ImageBackground, Image, FlatList, SafeAreaView, Touchable, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TransactionData from './TransactionData';
 import { h, mh, w, mw } from './styles/responsive';
 import HorizontalLine from './styles/HorizontalLine';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 
 
 
 
 const Homepage = ({navigation}) => {
+
+  const [userData, setUserData] = useState('')
+
+  async function getData(){
+    const token = await AsyncStorage.getItem('token')
+    console.log(token)
+
+    axios
+    .post( "http://192.168.0.223:5001/userdata", {token:token} )
+    .then(res => {
+      console.log(res.data);
+      setUserData(res.data.data)
+    }
+   )
+  } ;
+
+  useEffect ( ()=>{
+    getData()
+  }, [] )
 
   // render Item code for recent Transactions
   const Transactions = ({item}) => {
@@ -31,7 +52,7 @@ const Homepage = ({navigation}) => {
   };
 
   // hooks for user profile and balance update
-  const [user, setUser] = useState('Guest');
+  // const [user, setUser] = useState('Guest');
   const [bal, setBal] = useState('₦0');
 
 
@@ -51,7 +72,7 @@ const Homepage = ({navigation}) => {
           position:'absolute'}} />
 
                   {/* User name and greeting */}
-          <Text style={{color:'white', marginTop:mh(3), fontSize:mw(17), fontWeight:'700' }} > Hello {user} </Text>
+          <Text style={{color:'white', marginTop:mh(3), fontSize:mw(17), fontWeight:'700' }} > Hello {userData.name} </Text>
 
                   {/* balance */}
           <Text style={{color:'white', fontSize:mw(20), marginTop:10,}} > {bal}. </Text>

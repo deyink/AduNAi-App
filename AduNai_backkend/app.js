@@ -82,6 +82,22 @@ app.post('/Login', async (req, res) => {
      
 });
 
+app.post('/userdata', async ( req, res )=>{
+    const {token} = req.body;
+    try {
+        const user = jwt.verify(token, JWT_sec)
+        const useremail = user.email
+
+        User.findOne({email:useremail})
+        .then( (data)=>{
+            res.send({ status: 'ok', data: data })
+        } )
+    } catch (error) {
+        res.send( { error: error } )
+        
+    }
+} )
+
 app.listen(5001, ()=>{
     console.log('server started')  
 });

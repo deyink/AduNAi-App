@@ -9,7 +9,7 @@ const AccountSuccess = ({navigation}) => {
             <Image style={{margin:'auto', marginTop:h(150) }} source={require('../thumbs.png')} />
             <Text style={{margin:'auto', marginTop:h(30), fontSize:mw(18), fontWeight:'700'  }} > CONGRATULATIONS ! ! ! </Text>
             <Text style={{margin:'auto', marginTop:h(10), textAlign:'center', fontSize:mw(15) }} > Your Account Has been Successfully created. Enjoy Paying Bills Easiest Ever</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('Homepage')} style={{width:w(300), margin:'auto'  }} >
+            <TouchableOpacity onPress={()=>navigation.navigate('Login')} style={{width:w(300), margin:'auto'  }} >
                 <Text style={{backgroundColor:'blue', color:'#fffcf3', padding:15, fontSize:mw(15), textAlign:'center', bottom:h(-160), borderRadius:30 }} > Get Started </Text>
                 
             </TouchableOpacity>

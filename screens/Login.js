@@ -2,26 +2,22 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } fro
 import React, { useState } from 'react'
 import { w, mw, mh, h } from './styles/responsive'
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordVerify, setPasswordVerify] = useState(null);
-  const [emailVerify, setEmailVerify] = useState(null)
+  
 
   const onChangeEmail = (e)=>{
     const emailEvent = e.nativeEvent.text
     setEmail(emailEvent);  
-     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
-    regex.test(emailEvent) ? setEmailVerify(true) : setEmailVerify(false)
-
+     
   }
   const onChangePassword = (e)=>{
     const passwordEvent = e.nativeEvent.text;
     setPassword(passwordEvent)
-    const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/ ;
-    regex.test(passwordEvent) ? setPasswordVerify(true) : setPasswordVerify(false) 
   }
 
   const handleSubmit = ()=>{
@@ -36,7 +32,8 @@ const Login = ({navigation}) => {
 
       if(res.data.status === 'ok' ){
         navigation.navigate('Homepage');
-        Alert.alert('Welcome Back')         
+        AsyncStorage.setItem('token', res.data.data)
+        Alert.alert('Welcome Back' )         
       }
       else if (res.data.data ===  " User doesn't exist!! "  )
       {
