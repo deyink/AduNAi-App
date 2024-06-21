@@ -35,7 +35,8 @@ const Login = ({navigation}) => {
       console.log(res.data) ;
 
       if(res.data.status === 'ok' ){
-        navigation.navigate('Homepage')         
+        navigation.navigate('Homepage');
+        Alert.alert('Welcome Back')         
       }
       else if (res.data.data ===  " User doesn't exist!! "  )
       {
