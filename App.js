@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <NavigationContainer  >
-      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='FundWallet' >
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='Login' >
       <Stack.Screen
           name='LoadScreen'
           component={LoadScreen}

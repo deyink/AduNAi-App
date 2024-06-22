@@ -8,8 +8,6 @@ import axios from 'axios';
 
 
 
-
-
 const Homepage = ({navigation}) => {
 
   const [userData, setUserData] = useState('')
@@ -46,6 +44,7 @@ const Homepage = ({navigation}) => {
           <Text style={{marginVertical:'auto'}} > {item.time} </Text>
             <Text style={{textAlign:'right', display:'flex', color:'red', marginVertical:'auto' }} > {item.price}  </Text> 
         </View>
+        
         <HorizontalLine />
       </View>
     )
@@ -79,7 +78,7 @@ const Homepage = ({navigation}) => {
           <Text style={{color:'white', fontSize:mw(13), }} >  Available Balance </Text>
         </View>
 
-       <TouchableOpacity onPress={()=>navigation.openDraw()} >
+       <TouchableOpacity onPress={()=>navigation.navigate('FundWallet')} >
        <Text style={{ fontSize:mw(15), color:'#fffcf3', padding:mh(11), backgroundColor:'blue', width:w(130), display:'flex', right:w(-190), top:h(-75) }} > Add Money + </Text>
        </TouchableOpacity>
        
@@ -115,8 +114,6 @@ const Homepage = ({navigation}) => {
           keyExtractor={(item)=>item.id} 
         />
   
-
-
     </View>
   )
 }
