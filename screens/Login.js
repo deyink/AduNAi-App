@@ -30,10 +30,12 @@ const Login = ({navigation}) => {
     .then( res => {
       console.log(res.data) ;
 
-      if(res.data.status === 'ok' ){
+      if(res.data.status === 'ok' ){  
+        Alert.alert('Welcome Back' );  
         navigation.navigate('Homepage');
-        AsyncStorage.setItem('token', res.data.data)
-        Alert.alert('Welcome Back' )         
+        AsyncStorage.setItem('token', res.data.data);
+        AsyncStorage.setItem(isLOggedIn, JSON.stringify(true) );
+   
       }
       else if (res.data.data ===  " User doesn't exist!! "  )
       {

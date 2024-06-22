@@ -79,7 +79,7 @@ const Homepage = ({navigation}) => {
           <Text style={{color:'white', fontSize:mw(13), }} >  Available Balance </Text>
         </View>
 
-       <TouchableOpacity>
+       <TouchableOpacity onPress={()=>navigation.openDraw()} >
        <Text style={{ fontSize:mw(15), color:'#fffcf3', padding:mh(11), backgroundColor:'blue', width:w(130), display:'flex', right:w(-190), top:h(-75) }} > Add Money + </Text>
        </TouchableOpacity>
        

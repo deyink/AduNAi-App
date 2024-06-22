@@ -10,10 +10,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Airtime from './screens/Airtime';
 import AccountSuccess from './screens/AccountSuccess';
 import PhoneOtp from './screens/PhoneOtp';
+import FundWallet from './screens/FundWallet';
+
 
 
 
 const Stack = createNativeStackNavigator();
+
 
 export default function App() {
 
@@ -21,7 +24,7 @@ export default function App() {
 
   return (
     <NavigationContainer  >
-      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='Login' >
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='FundWallet' >
       <Stack.Screen
           name='LoadScreen'
           component={LoadScreen}
@@ -53,9 +56,14 @@ export default function App() {
         name='AccountSuccess'
         component={AccountSuccess}
         />
+        <Stack.Screen 
+        name='FundWallet'
+        component={FundWallet}  
+        />
 
      
       </Stack.Navigator>
+
     </NavigationContainer>
 
        
