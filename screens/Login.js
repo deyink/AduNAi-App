@@ -34,10 +34,11 @@ const Login = ({navigation}) => {
         Alert.alert('Welcome Back' );  
         navigation.navigate('Homepage');
         AsyncStorage.setItem('token', res.data.data);
-        AsyncStorage.setItem(isLOggedIn, JSON.stringify(true) );
+        AsyncStorage.setItem(isLoggedIn, JSON.stringify(true) );
    
       }
-      else if (res.data.data ===  " User doesn't exist!! "  )
+      else 
+      // if (res.data.data ===  " User doesn't exist!! "  )
       {
         Alert.alert('User Does not Exist')
       }

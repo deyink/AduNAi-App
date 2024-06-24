@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import LoadScreen from './screens/LoadScreen';
 import Homepage from './screens/Homepage';
@@ -11,11 +11,19 @@ import Airtime from './screens/Airtime';
 import AccountSuccess from './screens/AccountSuccess';
 import PhoneOtp from './screens/PhoneOtp';
 import FundWallet from './screens/FundWallet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState('false')
+
+  const getData = async ()=>{
+    const data = AsyncStorage.getItem('isLoggedIn')
+    console.log(data, 'at app.js')
+    setIsLoggedIn(data)
+  }
 
 
 
