@@ -5,7 +5,7 @@ import LoadScreen from './screens/LoadScreen';
 import Homepage from './screens/Homepage';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Airtime from './screens/Airtime';
 import AccountSuccess from './screens/AccountSuccess';
@@ -14,22 +14,11 @@ import FundWallet from './screens/FundWallet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
+// const Navigation = useNavigation();
 
-
-export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState('false')
-
-  const getData = async ()=>{
-    const data = AsyncStorage.getItem('isLoggedIn')
-    console.log(data, 'at app.js')
-    setIsLoggedIn(data)
-  }
-
-
-
-  return (
-    <NavigationContainer  >
-      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='Login' >
+const LogIn = ()=>{
+  return(
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='Homepage' >
       <Stack.Screen
           name='LoadScreen'
           component={LoadScreen}
@@ -66,15 +55,55 @@ export default function App() {
         component={FundWallet}  
         />
       </Stack.Navigator>
+  )
+};
 
-    </NavigationContainer>
+const NotLogIn = ()=>{
+  <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='Login' >
+  <Stack.Screen
+      name='LoadScreen'
+      component={LoadScreen}
+      options=''
+    />
+  <Stack.Screen
+      name='Login'
+      component={Login}
+      options=''
+    />
+    <Stack.Screen
+      name='Homepage'
+      component={Homepage}
+    />
+ 
+    <Stack.Screen 
+    name='Signup'
+    component={Signup}
+    />    
+  </Stack.Navigator>
 
-       
-     
+}
+
+
+export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState('false')
+
+  async function getData (){
+    const data = AsyncStorage.getItem('isLoggedIn')
+    console.log(data, 'at app.js')
+    setIsLoggedIn(data)
+  }
+  useEffect(()=>{
+    getData()
+  }, [])
+
+
+
+  return (
+   <NavigationContainer>
+    { isLoggedIn ? <LogIn /> : <NotLogIn/> }
+   </NavigationContainer>    
   
   );
 }
 
-const styles = StyleSheet.create({
- 
-});
+
