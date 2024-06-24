@@ -68,9 +68,7 @@ const Airtime = () => {
                                 ]}
                     source={network.Image}    />
                 </TouchableWithoutFeedback >
-            )
-            )
-            }
+            ))}
            
         </View>
 
@@ -107,7 +105,7 @@ const Airtime = () => {
 
             <Text style = {{
                 fontSize:mw(15)
-            }} >
+            }}>
                 Amount
             </Text>
             <View style={{flexDirection:'row'}} >

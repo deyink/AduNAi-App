@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert, useWindowDimensions, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import { h, mw, w } from './styles/responsive'
 import axios from 'axios'
@@ -7,6 +7,8 @@ import axios from 'axios'
 
 
 const Signup = ({navigation}) => {
+
+  const {height, width}= Dimensions.get('window')
 
   const [name, setName] = useState('')
   const [nameVerify, setNameVerify ] = useState(false)
@@ -55,7 +57,7 @@ const Signup = ({navigation}) => {
       console.log(res.data)
 
       if(res.data.status === 'ok' ){
-        Alert.alert('Account Successfully Created')
+        Alert.alert('Account Successfully Created' )
         navigation.navigate('AccountSuccess')
       }
       else if (res.data.data === 'User already exist' ) {
@@ -83,8 +85,8 @@ const Signup = ({navigation}) => {
 
 
   return (
-    <View style={styles.bground} >
-      <View style={styles.card} >
+    <View style={ width > height ? styles.landscape : styles.portrait } >
+      <View style={ styles.card } >
         <Text style={styles.head} > Welcome! </Text>
         <Text style={{color:'gray', textAlign:'center', marginBottom:h(20)}} >Please fill in {'\n'}  the following details to create your new Account</Text>
 
@@ -162,19 +164,37 @@ const Signup = ({navigation}) => {
 export default Signup
 
 const styles = StyleSheet.create({
-    bground:{
+    portrait:{
+        flex: 1 ,
+        flexDirection: 'column',
         height: '100%',
         width: '100%',
         backgroundColor: '#192a56'
     },
-
-    card:{
-        height: 'auto ',
-        width: w(330),
-        backgroundColor: '#2f3f66',
-        margin: 'auto',
-        borderRadius: 10
-    },
+    landscape:{
+      // flex: 1 ,
+      flexDirection: 'row',
+      height: '100%',
+      width: '100%',
+      backgroundColor: '#192a56'
+  },
+  
+  card:{
+    height: 'auto ',
+    width: w(330),
+    flexDirection:'column',
+    backgroundColor: '#2f3f66',
+    margin: 'auto',
+    borderRadius: 10
+ },
+//     landscape:{
+//         height: '100 ',
+//         width: w(700),
+//         flexDirection:'row',
+//         backgroundColor: '#2f3f66',
+//         margin: 'auto',
+//         borderRadius: 10
+//     },
     head:{
         color: '#fffcf3',
         fontSize: mw(23),

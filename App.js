@@ -12,9 +12,6 @@ import AccountSuccess from './screens/AccountSuccess';
 import PhoneOtp from './screens/PhoneOtp';
 import FundWallet from './screens/FundWallet';
 
-
-
-
 const Stack = createNativeStackNavigator();
 
 
@@ -60,8 +57,6 @@ export default function App() {
         name='FundWallet'
         component={FundWallet}  
         />
-
-     
       </Stack.Navigator>
 
     </NavigationContainer>
