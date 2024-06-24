@@ -5,8 +5,9 @@ import { h, mh, w, mw } from './styles/responsive';
 import HorizontalLine from './styles/HorizontalLine';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
-
+const Navigation = useNavigation
 
 const Homepage = ({navigation}) => {
 
@@ -78,7 +79,7 @@ const Homepage = ({navigation}) => {
           <Text style={{color:'white', fontSize:mw(13), }} >  Available Balance </Text>
         </View>
 
-       <TouchableOpacity onPress={()=>navigation.navigate('FundWallet')} >
+       <TouchableOpacity onPress={ ()=>navigation.navigate('FundWallet') } >
        <Text style={{ fontSize:mw(15), color:'#fffcf3', padding:mh(11), backgroundColor:'blue', width:w(130), display:'flex', right:w(-190), top:h(-75) }} > Add Money + </Text>
        </TouchableOpacity>
        
