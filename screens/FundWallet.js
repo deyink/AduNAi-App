@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { mh, mw, h, w } from './styles/responsive'
 require('number-to-locale-string-polyfill');
 
-const FundWallet = () => {
+const FundWallet = ({navigation}) => {
 
   const [bal, setBal] = useState('0')
   const [fund, setFund] = useState('')
@@ -12,6 +12,13 @@ const FundWallet = () => {
     const amtEvent = e.nativeEvent.text
     setBal(amtEvent)
   }
+
+  const handleFund = ()=>{
+    fund === 'CARD' ? 
+    Alert.alert('You have picked Card as a mode of transaction'):
+    Alert.alert('You have picked Transfer as a mode of transaction')
+  }
+
 const bala = bal.toLocaleString();
   return (
     <View style={{width:'100%', height:'100%', backgroundColor:'white', paddingHorizontal:mw(5), paddingVertical:mh(30) }} >
@@ -35,7 +42,7 @@ const bala = bal.toLocaleString();
         }} > ₦{bala}  </Text>
        <TextInput onChange={(e)=>onchangeAmt(e)} placeholder='0' keyboardType='numeric' style={{height:h(50), width:'100%', borderWidth:.2,  paddingHorizontal:w(8)}} />
 
-        <TouchableOpacity style={{padding:20, backgroundColor:'blue', borderRadius:40, marginTop:h(33) }} >
+        <TouchableOpacity onPress={()=>handleFund()} style={{padding:20, backgroundColor:'blue', borderRadius:40, marginTop:h(33) }} >
           <Text style={{color:'white', textAlign:'center'}} > Fund Via {fund} </Text>
         </TouchableOpacity>
 
