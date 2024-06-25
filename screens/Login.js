@@ -69,6 +69,7 @@ const Login = ({navigation}) => {
         onChange={ e => onChangePassword(e) }
         placeholder="Password"
         keyboardType=""
+        secureTextEntry={true}
         
       />
         
