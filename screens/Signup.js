@@ -40,9 +40,6 @@ const Signup = ({navigation}) => {
     const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/
     regex.test(passwordEvent) ? setPasswordVerify(true) : setPasswordVerify(false)
   }
-  
-   
-
 
   const handleSubmit = ()=>{
     const userData = {
