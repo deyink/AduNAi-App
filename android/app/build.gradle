@@ -92,6 +92,12 @@ android {
         versionName "1.0"
     }
     signingConfigs {
+         release {
+            storeFile file("deynk_key.keystore")
+            storePassword "Akanji@222"
+            keyAlias "deyink_key"
+            keyPassword "Akanji@222"
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
