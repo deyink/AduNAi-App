@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 const LogIn = ()=>{
   return(
-      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='Homepage' >
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='Login' >
       <Stack.Screen
           name='LoadScreen'
           component={LoadScreen}

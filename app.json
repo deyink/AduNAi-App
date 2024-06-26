@@ -2,6 +2,11 @@
   "expo": {
     "name": "AduNai",
     "slug": "AduNai",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "1fe768b8-a006-45c2-baee-98c3755bb5e9"
+      }
+    }
   }
 }

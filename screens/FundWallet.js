@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { mh, mw, h, w } from './styles/responsive'
-require('number-to-locale-string-polyfill');
+
 
 const FundWallet = ({navigation}) => {
 
@@ -48,6 +48,6 @@ const bala = bal.toLocaleString();
 
     </View>
   )
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
 export default FundWallet
