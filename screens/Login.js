@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     bground:{
         height: '100%',
         width: '100%',
-        backgroundColor: '#192a56'
+        backgroundColor: 'white'
     },
 
     card:{
