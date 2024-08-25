@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert, useWindowDimensions, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import { h, mw, w } from './styles/responsive'
 import axios from 'axios'
@@ -48,8 +48,7 @@ const Signup = ({navigation}) => {
       password,
     };
     if( nameVerify && emailVerify && passwordVerify ){
-      axios
-    .post("http://192.168.0.223:5001/Signup", userData )
+      axios.post("http://192.168.0.46:5001/Signup", userData )
     .then( res=> {
       console.log(res.data)
 

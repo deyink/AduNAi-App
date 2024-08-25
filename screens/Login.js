@@ -25,8 +25,7 @@ const Login = ({navigation}) => {
       email: email,
       password,
     } 
-    axios
-    .post("http://192.168.0.223:5001/Login", userData)
+    axios.post("http://192.168.0.46:5001/Login", userData)
     .then( res => {
       console.log(res.data) ;
 

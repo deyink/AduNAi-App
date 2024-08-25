@@ -1,4 +1,4 @@
-package com.adunai
+package com.deyink.AduNai
 
 import android.os.Build
 import android.os.Bundle

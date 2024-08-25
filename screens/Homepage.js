@@ -5,7 +5,6 @@ import { h, mh, w, mw } from './styles/responsive';
 import HorizontalLine from './styles/HorizontalLine';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -17,8 +16,7 @@ const Homepage = ({navigation}) => {
     const token = await AsyncStorage.getItem('token')
     console.log(token)
 
-    axios
-    .post( "http://192.168.0.223:5001/userdata", {token:token} )
+    axios.post( "http://192.168.0.46:5001/userdata", {token:token} )
     .then(res => {
       console.log(res.data);
       setUserData(res.data.data)

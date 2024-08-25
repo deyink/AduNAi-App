@@ -5,7 +5,7 @@ app.use(express.json());
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const mongoUrl = "mongodb+srv://yusufadeyinka55:Akanji%40222@cluster0.ueu7rrb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" ;
+const mongoUrl = 'mongodb+srv://yusufadeyinka55:Akanji222@cluster0.ebjle.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 const JWT_sec = '3fee1b0ee5a62a4e6cd6a39ff22e35b754330426addba31494695d8ca21990f8' ;
 
@@ -20,9 +20,6 @@ mongoose
 require('../AduNai_backkend/UserDetails')
 const User = mongoose.model('UserInfo')
 
-app.get('/', (req, res)=>{
-    res.send("My first Server code")
-} );
 
 
 
