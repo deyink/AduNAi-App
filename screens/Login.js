@@ -30,7 +30,7 @@ const Login = ({navigation}) => {
       console.log(res.data) ;
 
       if(res.data.status === 'ok' ){  
-        Alert.alert('Welcome Back' );  
+        Alert.alert('Welcome Back',  );  
         navigation.navigate('Homepage');
         AsyncStorage.setItem('token', res.data.data);
         AsyncStorage.setItem(isLoggedIn, JSON.stringify(true) );

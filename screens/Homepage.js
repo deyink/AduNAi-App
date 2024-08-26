@@ -1,16 +1,19 @@
-import { View, Text, StyleSheet, ImageBackground, Image, FlatList, SafeAreaView, Touchable, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Image, FlatList, SafeAreaView, Touchable, TouchableOpacity, Alert, BackHandler } from 'react-native'
 import React, { useEffect, useState } from 'react';
 import TransactionData from './TransactionData';
 import { h, mh, w, mw } from './styles/responsive';
 import HorizontalLine from './styles/HorizontalLine';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { hs, vs } from './styles/Metrics';
+import Login from './Login';
 
 
 
 const Homepage = ({navigation}) => {
 
   const [userData, setUserData] = useState('')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   async function getData(){
     const token = await AsyncStorage.getItem('token')
@@ -23,6 +26,50 @@ const Homepage = ({navigation}) => {
     }
    )
   } ;
+
+
+// Back Handler
+  useEffect(() => {
+    const backAction = () => {
+      // ToastAndroid.show("Exiting the app", ToastAndroid.SHORT);
+      // BackHandler.exitApp();
+      Alert.alert('You want to exit App ?', 'if no, press cancel', [
+        {
+          text: 'Cancel',
+          onPress: ()=> null,
+          style: 'cancel'
+        },
+        {
+          text: 'Yes',
+          onPress:()=> BackHandler.exitApp()
+        }
+      ] )
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+   return () => backHandler.remove(); // Cleanup the backHandler on component unmount
+  }, []);
+  
+
+  const logOut = ()=> {
+    Alert.alert('Are you sure you want to logout', 'If No, press cancel  ',
+      [
+        {
+          text:'Yes',
+          onPress:()=>{setIsLoggedIn(false), 
+            // setUserData(''),
+            navigation.navigate('Login') }
+        },
+        {
+          text:'Cancel',
+          onPress:()=>null,
+          style:'cancel'
+        },
+      ] );
+  }
+
+
+  
 
   useEffect ( ()=>{
     getData()
@@ -77,9 +124,14 @@ const Homepage = ({navigation}) => {
           <Text style={{color:'white', fontSize:mw(13), }} >  Available Balance </Text>
         </View>
 
+        <TouchableOpacity style={{position:'absolute', right:hs(20), top:vs(20) }} onPress={logOut}  >
+        <Image  source={require('../power-off.png')} />
+        </TouchableOpacity>
+
        <TouchableOpacity onPress={ ()=>navigation.navigate('FundWallet') } >
        <Text style={{ fontSize:mw(15), color:'#fffcf3', padding:mh(11), backgroundColor:'blue', width:w(130), display:'flex', right:w(-190), top:h(-75) }} > Add Money + </Text>
        </TouchableOpacity>
+       
        
          
       </View>
@@ -105,7 +157,6 @@ const Homepage = ({navigation}) => {
 
       {/* Recent Payment */}
       <Text style={{marginLeft:20,fontSize:18, marginBottom:3,}} > Recent Transaction </Text>
-
       
         <FlatList 
           data={TransactionData} 

@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 const LogIn = ()=>{
   return(
-      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='Login' >
+      <Stack.Navigator screenOptions={{ headerShown: false  }} initialRouteName='LoadScreen' >
       <Stack.Screen
           name='LoadScreen'
           component={LoadScreen}
@@ -85,7 +85,7 @@ const NotLogIn = ()=>{
 
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState('false')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   async function getData (){
     const data = AsyncStorage.getItem('isLoggedIn')

@@ -1,10 +1,26 @@
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Homepage from './Homepage'
+import { h, w } from './styles/responsive'
+import { hs, vs } from './styles/Metrics'
 
-const LoadScreen = () => {
+const LoadScreen = ({navigation}) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  // async function getData (){
+  //   const data = AsyncStorage.getItem('isLoggedIn')
+  //   console.log(data, 'at app.js')
+  //   setIsLoggedIn(data)
+  // }
+  // useEffect(()=>{
+  //   getData()
+  // }, [])
   useEffect(()=>{
     setTimeout(()=>{
-      {LoadScreen}
+      isLoggedIn ? 
+      navigation.navigate('Login') :
+      navigation.navigate('Homepage')
+          
     }, 2000)
   },[])
   return (
@@ -30,50 +46,50 @@ const styles = StyleSheet.create({
         backgroundColor: '#192a56',
     },
     header:{
-        fontSize: 30,
+        fontSize: 35,
         color: '#fffcf3',
         textAlign: 'center',
-        top: 250,
+        top: vs(270),
         fontWeight: '700'
     },
     circle:{
-        height: 70,
-        width: 70,
+        height: vs(70),
+        width: hs(70),
         backgroundColor: '#fffcf3',
-        top: 300,
-        left: 145,
+        top: vs(300),
+        left: hs(145),
         borderRadius: 50
     },
     circle1:{
-      height: 60,
-      width: 60,
+      height: vs(60),
+      width: hs(60),
       backgroundColor: '#192a56',
-      top: 235,
-      left: 150,
+      top: vs(235),
+      left: hs(150),
       borderRadius: 50
   },
   circle2:{
-    height: 50,
-    width: 50,
+    height: vs(50),
+    width: hs(50),
     backgroundColor: '#fffcf3',
-    top: 180,
-    left: 155,
+    top: vs(180),
+    left: hs(155),
     borderRadius: 50
 },
 circle3:{
-  height: 40,
-  width: 40,
+  height: vs(40),
+  width: hs(40),
   backgroundColor: '#192a56',
-  top: 135,
-  left: 160,
+  top: vs(135),
+  left: hs(160),
   borderRadius: 50
 },
 circle4:{
-  height: 30,
-  width: 30,
+  height: vs(30),
+  width: hs(30),
   backgroundColor: '#fffcf3',
-  top: 100,
-  left: 165,
+  top: vs(100),
+  left: hs(165),
   borderRadius: 50
 },
 
