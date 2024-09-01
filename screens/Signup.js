@@ -48,7 +48,7 @@ const Signup = ({navigation}) => {
       password,
     };
     if( nameVerify && emailVerify && passwordVerify ){
-      axios.post("http://192.168.0.46:5001/Signup", userData )
+      axios.post("http://192.168.0.3:5001/Signup", userData )
     .then( res=> {
       console.log(res.data)
 

@@ -8,6 +8,8 @@ const Login = ({navigation}) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userData, setUserData] = useState('');  // Add userData state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
 
   const onChangeEmail = (e)=>{
@@ -20,30 +22,40 @@ const Login = ({navigation}) => {
     setPassword(passwordEvent)
   }
 
+  // Login function
   const handleSubmit = ()=>{
     const userData = {
       email: email,
       password,
     } 
-    axios.post("http://192.168.0.46:5001/Login", userData)
+    axios.post("http://192.168.0.3:5001/Login", userData)
     .then( res => {
       console.log(res.data) ;
 
       if(res.data.status === 'ok' ){  
         Alert.alert('Welcome Back',  );  
         navigation.navigate('Homepage');
-        AsyncStorage.setItem('token', res.data.data);
-        AsyncStorage.setItem(isLoggedIn, JSON.stringify(true) );
+        AsyncStorage.setItem('token', res.data.data.token); //store token in async storage
+        AsyncStorage.setItem('isLoggedIn', JSON.stringify(true) ); // store login state in asyncs
+
+        // Store user data in AsyncStorage and update state
+        AsyncStorage.setItem('userData', JSON.stringify(res.data.data.user));
+        setUserData(res.data.data.user);  // Update userData state
+        setIsLoggedIn(true);  // Set login status in state
+
+
    
       }
       else 
-      // if (res.data.data ===  " User doesn't exist!! "  )
+      
       {
         Alert.alert('User Does not Exist')
       }
     } )
-
-
+    .catch(error => {
+      console.error("Login error:", error);
+      Alert.alert('Error', 'Login failed. Please try again.');
+    });
   }
 
   return (
@@ -106,7 +118,7 @@ const styles = StyleSheet.create({
     bground:{
         height: '100%',
         width: '100%',
-        backgroundColor: 'white'
+        backgroundColor: '#192a56'
     },
 
     card:{

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ImageBackground, Image, FlatList, SafeAreaView, Touchable, TouchableOpacity, Alert, BackHandler } from 'react-native'
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, Alert, BackHandler, ToastAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react';
 import TransactionData from './TransactionData';
 import { h, mh, w, mw } from './styles/responsive';
@@ -6,7 +6,8 @@ import HorizontalLine from './styles/HorizontalLine';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { hs, vs } from './styles/Metrics';
-import Login from './Login';
+import { useNavigationState } from '@react-navigation/native';
+
 
 
 
@@ -14,41 +15,78 @@ const Homepage = ({navigation}) => {
 
   const [userData, setUserData] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [backPressCount, setBackPressCount] = useState(0)
+  const currentRouteIndex = useNavigationState(state =>state.index); 
 
   async function getData(){
-    const token = await AsyncStorage.getItem('token')
+    try {
+      const token = await AsyncStorage.getItem('token')
     console.log(token)
 
+    if(token){
     axios.post( "http://192.168.0.46:5001/userdata", {token:token} )
     .then(res => {
       console.log(res.data);
       setUserData(res.data.data)
+      AsyncStorage.setItem('userData', JSON.stringify(userData)); //User data stored
+    })
+    .catch(error=>{
+      console.error('Error fetching data:', error);
+    });
+  } else {
+    console.log('No token found');
+  }
     }
-   )
+     catch (error) {
+      console.error('Error retrieving token:', error)
+    }
   } ;
+
+  // Load data
+  useEffect(() => {
+    async function loadUserData() {
+      try {
+        const storedUserData = await AsyncStorage.getItem('userData');
+        if (storedUserData) {
+          setUserData(JSON.parse(storedUserData));  // Populate userData state from AsyncStorage
+          setIsLoggedIn(true);  // Set login status based on stored data
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error);
+      }
+    }
+  
+    loadUserData();
+    getData();
+  }, []);
 
 
 // Back Handler
   useEffect(() => {
     const backAction = () => {
-      // ToastAndroid.show("Exiting the app", ToastAndroid.SHORT);
-      // BackHandler.exitApp();
-      Alert.alert('You want to exit App ?', 'if no, press cancel', [
-        {
-          text: 'Cancel',
-          onPress: ()=> null,
-          style: 'cancel'
-        },
-        {
-          text: 'Yes',
-          onPress:()=> BackHandler.exitApp()
-        }
-      ] )
-      return true;
-    };
+      if (currentRouteIndex === 1) {
+        // start to handle double press
+        if (backPressCount === 0) {
+          setBackPressCount(1)
+          ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
+
+          setTimeout(()=> setBackPressCount(0), 2000);
+
+          if (navigation.canGoBack()) {
+            navigation.goBack();
+          } return true 
+        } else if (backPressCount === 1 ) {
+          BackHandler.exitApp(); //exiting app
+        } else{
+         navigation.goBack(); //navigate to previous page if not
+         return true;
+        };
+      }
+      }
+      
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
    return () => backHandler.remove(); // Cleanup the backHandler on component unmount
-  }, []);
+  }, [backPressCount, currentRouteIndex, navigation]);
   
 
   const logOut = ()=> {
@@ -56,9 +94,14 @@ const Homepage = ({navigation}) => {
       [
         {
           text:'Yes',
-          onPress:()=>{setIsLoggedIn(false), 
-            // setUserData(''),
-            navigation.navigate('Login') }
+          onPress:()=>{
+            setIsLoggedIn(false),
+            AsyncStorage.removeItem('token')
+            AsyncStorage.removeItem('userData') // User data removed from async storage
+            setUserData('')
+            navigation.navigate('Login')
+
+          }
         },
         {
           text:'Cancel',

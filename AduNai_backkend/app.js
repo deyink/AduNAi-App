@@ -1,9 +1,11 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+
 app.use(express.json());
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const PORT = 5001
 
 const mongoUrl = 'mongodb+srv://yusufadeyinka55:Akanji222@cluster0.ebjle.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
@@ -50,54 +52,52 @@ app.post('/Signup', async(req, res)=>{
     }
     
 });
-
+// Login Endpoint
 app.post('/Login', async (req, res) => {
     const { email, password } = req.body;
-
-    const oldUser = await User.findOne({ email: email }) ;
-
-    if (!oldUser){
-        return res.send({data: " User doesn't exist!! " })
-    }
-    if ( await bcrypt.compare( password, oldUser.password ) ){
-        const token = jwt.sign({email: oldUser.email }, JWT_sec ) ;
-
-        if (res.status(200)) {
-                 
-            res.send({status: 'ok', data: token }) ;
-          
-        
-           
-        } 
-         else {
-        
-             res.send({ error: 'error' })
-            
-         }
-    } 
-    
-     
-});
-
-app.post('/userdata', async ( req, res )=>{
-    const {token} = req.body;
+  
     try {
-        const user = jwt.verify(token, JWT_sec)
-        const useremail = user.email
-
-        User.findOne({email:useremail})
-        .then( (data)=>{
-            res.send({ status: 'ok', data: data })
-        } )
+      const oldUser = await User.findOne({ email: email });
+  
+      if (!oldUser) {
+        return res.status(404).send({ status: 'error', message: "User doesn't exist!" });
+      }
+  
+      const isPasswordValid = await bcrypt.compare(password, oldUser.password);
+      if (!isPasswordValid) {
+        return res.status(401).send({ status: 'error', message: 'Invalid credentials' });
+      }
+  
+      const token = jwt.sign({ email: oldUser.email }, JWT_sec, { expiresIn: '1h' });  // Token expires in 1 hour
+  
+      res.status(200).send({ status: 'ok', data: { token, user: oldUser } });  // Return token and user data
     } catch (error) {
-        res.send( { error: error } )
-        
+      console.error("Login error:", error);
+      res.status(500).send({ status: 'error', message: 'Internal server error' });
     }
-} )
-
-app.listen(5001, ()=>{
-    console.log('server started')  
-});
-
-
-
+  });
+  
+  // Get User Data Endpoint
+  app.post('/userdata', async (req, res) => {
+    const { token } = req.body;
+  
+    try {
+      const decoded = jwt.verify(token, JWT_sec);
+      const useremail = decoded.email;
+  
+      const user = await User.findOne({ email: useremail });
+      if (!user) {
+        return res.status(404).send({ status: 'error', message: 'User not found' });
+      }
+  
+      res.status(200).send({ status: 'ok', data: user });
+    } catch (error) {
+      console.error("User data retrieval error:", error);
+      res.status(401).send({ status: 'error', message: 'Invalid token or token expired' });
+    }
+  });
+  
+  // Start the Server
+  app.listen(PORT, () => {
+    console.log('Server started');
+  });
